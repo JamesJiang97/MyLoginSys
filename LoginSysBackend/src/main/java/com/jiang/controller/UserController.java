@@ -35,5 +35,4 @@ public class UserController {
         System.out.println(user.getPw());
         return  userService.signUp(user.getName(), user.getEmail(), user.getPw());
     }
-
 }

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 
-import { onMounted } from 'vue'
+import { onBeforeMount, onBeforeUnmount } from "vue"
 import { apiNameExist } from '@/apis/NameExist'
 import { ref } from 'vue'
 import axios from 'axios'
- 
+
 // const signUpButton = document.getElementById('signUp');
 // const signInButton = document.getElementById('signIn');
 // const container = document.getElementById('container');
@@ -34,7 +34,7 @@ function nameExist() {
 	// 	console.log(res)
 	// })
 
-	axios.post('http://localhost:8080/users', {"id" : null,"name" : user.value, "email" : null, "pw" : null}).then(
+	axios.post('http://localhost:8080/users', { "id": null, "name": user.value, "email": null, "pw": null }).then(
 		response => {
 			console.log(response.data)
 		}
@@ -42,63 +42,69 @@ function nameExist() {
 
 }
 
-onMounted(() => {
-	nameExist()
-})
+onBeforeMount(() => {
+	document.body.setAttribute("style", "background: #fff");
+});
+onBeforeUnmount(() => {
+	document.body.removeAttribute("style");
+});
+
+
 
 </script>
 
 <template>
 
-<div class="container" id="container">
-	<div class="form-container sign-up-container">
-		<form action="#">
-			<h1 class="tit">Create Account</h1>   
-			<p></p>
-			<input class="inp" type="text" v-model="user" @blur="nameExist" placeholder="Name" />
-			<input class="inp" type="email" placeholder="Email" />
-			<input class="inp" type="password" placeholder="Password" />
-			<button>Sign Up</button>
-		</form>
-	</div>
-	<div class="form-container sign-in-container">
-		<form action="#">
-			<h1 class="tit">Sign in</h1>
-			<p></p>
-			<input class="inp" type="email" placeholder="Email" />
-			<input class="inp" type="password" placeholder="Password" />
-			<a href="#">Forgot your password?</a>
-			<button>Sign In</button>
-		</form>
-	</div>
-	<div class="overlay-container">
-		<div class="overlay">
-			<div class="overlay-panel overlay-left">
-				<h1>Welcome Back!</h1>
-				<p>To keep connected with us please login with your personal info</p>
-				<button @click="signIn">Sign In</button>
+	<div class="body-bg" id="bodu-bg">
+		<div class="container" id="container">
+			<div class="form-container sign-up-container">
+				<form action="#">
+					<h1 class="tit">Create Account</h1>
+					<p></p>
+					<input class="inp" type="text" v-model="user" @blur="nameExist" placeholder="Name" />
+					<input class="inp" type="email" placeholder="Email" />
+					<input class="inp" type="password" placeholder="Password" />
+					<button>Sign Up</button>
+				</form>
 			</div>
-			<div class="overlay-panel overlay-right">
-				<h1>Hello, Friend!</h1>
-				<p>Enter your personal details and start journey with us</p>
-				<button @click="signUp">Sign Up</button>
+			<div class="form-container sign-in-container">
+				<form action="#">
+					<h1 class="tit">Sign in</h1>
+					<p></p>
+					<input class="inp" type="email" placeholder="Email" />
+					<input class="inp" type="password" placeholder="Password" />
+					<a href="#">Forgot your password?</a>
+					<button>Sign In</button>
+				</form>
+			</div>
+			<div class="overlay-container">
+				<div class="overlay">
+					<div class="overlay-panel overlay-left">
+						<h1>Welcome Back!</h1>
+						<p>To keep connected with us please login with your personal info</p>
+						<button @click="signIn">Sign In</button>
+					</div>
+					<div class="overlay-panel overlay-right">
+						<h1>Hello, Friend!</h1>
+						<p>Enter your personal details and start journey with us</p>
+						<button @click="signUp">Sign Up</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 
 </template>
 
-<style>
-
+<style scoped>
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 * {
 	box-sizing: border-box;
 }
 
-body {
+.body-bg {
 	background: #f6f5f7;
 	display: flex;
 	justify-content: center;
@@ -106,7 +112,8 @@ body {
 	flex-direction: column;
 	font-family: 'Montserrat', sans-serif;
 	height: 100vh;
-	margin: -20px 0 50px;
+	width: 100%;
+	position: fixed;
 }
 
 h1 {
@@ -189,13 +196,15 @@ input {
 .container {
 	background-color: #fff;
 	border-radius: 10px;
-  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-			0 10px 10px rgba(0,0,0,0.22);
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+		0 10px 10px rgba(0, 0, 0, 0.22);
 	position: relative;
 	overflow: hidden;
 	width: 768px;
 	max-width: 100%;
 	min-height: 480px;
+	/* margin: auto;
+	transform: translate3d(0, 50%, 0); */
 }
 
 .form-container {
@@ -230,12 +239,15 @@ input {
 }
 
 @keyframes show {
-	0%, 49.99% {
+
+	0%,
+	49.99% {
 		opacity: 0;
 		z-index: 1;
 	}
-	
-	50%, 100% {
+
+	50%,
+	100% {
 		opacity: 1;
 		z-index: 5;
 	}
@@ -250,14 +262,14 @@ input {
 	overflow: hidden;
 	transition: transform 0.6s ease-in-out;
 	z-index: 100;
-	background: linear-gradient(315deg, rgba(101,0,94,1) 3%, rgba(60,132,206,1) 38%, rgb(99, 238, 44) 68%, rgba(251, 76, 76, 0.947) 98%);
-    animation: gradient 10s ease infinite;
+	background: linear-gradient(315deg, rgba(101, 0, 94, 1) 3%, rgba(60, 132, 206, 1) 38%, rgb(99, 238, 44) 68%, rgba(251, 76, 76, 0.947) 98%);
+	animation: gradient 10s ease infinite;
 	background-attachment: fixed;
 	background-size: 300% 300%;
-	
+
 }
 
-.container.right-panel-active .overlay-container{
+.container.right-panel-active .overlay-container {
 	transform: translateX(-100%);
 }
 
@@ -267,24 +279,26 @@ input {
 	left: -100%;
 	height: 100%;
 	width: 200%;
-  	transform: translateX(0);
+	transform: translateX(0);
 	transition: transform 0.6s ease-in-out;
 }
 
 @keyframes gradient {
-        0% {
-            background-position: 0% 0%;
-        }
-        50% {
-            background-position: 100% 100%;
-        }
-        100% {
-            background-position: 0% 0%;
-        }
-    }
+	0% {
+		background-position: 0% 0%;
+	}
+
+	50% {
+		background-position: 100% 100%;
+	}
+
+	100% {
+		background-position: 0% 0%;
+	}
+}
 
 .container.right-panel-active .overlay {
-  	transform: translateX(50%);
+	transform: translateX(50%);
 }
 
 .overlay-panel {
@@ -322,7 +336,4 @@ input {
 .inp {
 	border-radius: 400px
 }
-
-
-
 </style>
