@@ -23,7 +23,6 @@ public interface UserDao {
     @Select("select * from tb_account where email = #{email} and pw = #{pw}")
     User loginByEmail(String email, String pw);
 
-
     @Insert("insert into tb_account(name,email,pw,submission_date)values(#{name},#{email},#{pw},#{submission_date})")
     Integer insert(String name, String email, String pw, String submission_date);
 

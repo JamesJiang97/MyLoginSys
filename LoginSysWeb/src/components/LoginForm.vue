@@ -1,55 +1,44 @@
 <script setup lang="ts">
 
-import { onBeforeMount, onBeforeUnmount } from "vue"
 import { apiNameExist } from '@/apis/NameExist'
+import { apiEmailExist} from '@/apis/EmailExist'
 import { ref } from 'vue'
-import axios from 'axios'
 
-// const signUpButton = document.getElementById('signUp');
-// const signInButton = document.getElementById('signIn');
-// const container = document.getElementById('container');
+const name = ref('')
+const email = ref('')
+const pwd = ref('')
 
-// signUpButton!.addEventListener('click', () => {
-// 	container!.classList.add("right-panel-active");
-// });
-
-// signInButton!.addEventListener('click', () => {
-// 	container!.classList.remove("right-panel-active");
-// });
+function clean() {
+	name.value = ''
+	email.value = ''
+	pwd.value = ''
+}
 
 function signIn() {
 	console.log('signin')
 	document.getElementById('container')!.classList.remove("right-panel-active");
+	setTimeout(clean, 400)
 }
 
 function signUp() {
 	console.log('signup')
 	document.getElementById('container')!.classList.add("right-panel-active");
+	setTimeout(clean, 400)
 }
 
-const user = ref('')
+
 
 function nameExist() {
-	// apiNameExist(user  .value).then((res) => {
-	// 	console.log(res)
-	// })
-
-	axios.post('http://localhost:8080/users', { "id": null, "name": user.value, "email": null, "pw": null }).then(
-		response => {
-			console.log(response.data)
-		}
-	)
-
+	apiNameExist(name.value).then((response) => {
+		console.log(response)
+	})
 }
 
-onBeforeMount(() => {
-	document.body.setAttribute("style", "background: #fff");
-});
-onBeforeUnmount(() => {
-	document.body.removeAttribute("style");
-});
-
-
+function emailExist() {
+	apiEmailExist(email.value).then((response) => {
+		console.log(response)
+	})
+}
 
 </script>
 
@@ -61,9 +50,9 @@ onBeforeUnmount(() => {
 				<form action="#">
 					<h1 class="tit">Create Account</h1>
 					<p></p>
-					<input class="inp" type="text" v-model="user" @blur="nameExist" placeholder="Name" />
-					<input class="inp" type="email" placeholder="Email" />
-					<input class="inp" type="password" placeholder="Password" />
+					<input class="inp" type="text" v-model="name" @blur="nameExist" placeholder="Name" />
+					<input class="inp" type="email" v-model="email" @blur="emailExist" placeholder="Email" />
+					<input class="inp" type="password" v-model="pwd" placeholder="Password" />
 					<button>Sign Up</button>
 				</form>
 			</div>
@@ -71,8 +60,8 @@ onBeforeUnmount(() => {
 				<form action="#">
 					<h1 class="tit">Sign in</h1>
 					<p></p>
-					<input class="inp" type="email" placeholder="Email" />
-					<input class="inp" type="password" placeholder="Password" />
+					<input class="inp" type="email" v-model="email" placeholder="Email" />
+					<input class="inp" type="password" v-model="pwd" placeholder="Password" />
 					<a href="#">Forgot your password?</a>
 					<button>Sign In</button>
 				</form>

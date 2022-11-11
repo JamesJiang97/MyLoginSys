@@ -1,13 +1,5 @@
 <script setup lang="ts">
 
-import { onBeforeMount, onBeforeUnmount } from "vue"
-
-onBeforeMount(() => {
-    document.body.setAttribute("style", "background: #fff");
-});
-onBeforeUnmount(() => {
-    document.body.removeAttribute("style");
-});
 
 </script>
 
@@ -40,7 +32,6 @@ onBeforeUnmount(() => {
 	font-family: 'Montserrat', sans-serif;
     width: 100%;
 	height: 100vh;
-	/* margin: -20px 0 50px; */
     position: fixed;
 }
 

@@ -5,27 +5,34 @@ import com.jiang.pojo.User;
 import com.jiang.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = {"http://127.0.0.1:5173"})
 
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping
-
-    public Boolean userExist(@RequestBody User user){
+    @PostMapping("/nameExist")
+    public Boolean nameExist(@RequestBody User user, HttpServletRequest request , HttpServletResponse response){
         System.out.println(user.getName());
         System.out.println("userExist running");
-        return userService.userExist(user.getName());
+        return userService.nameExist(user.getName());
     }
 
+    @PostMapping("/emailExist")
+    public Boolean emailExist(@RequestBody User user){
+        System.out.println(user.getEmail());
+        return userService.emailExist(user.getEmail());
+    }
+
+
     @PostMapping("/signIn")
-    public Boolean signIn(@RequestParam String user,@RequestParam String pw){
-        return userService.signIn(user, pw);
+    public Boolean signIn(@RequestBody User user, HttpServletRequest request , HttpServletResponse response){
+        return userService.signIn(user.getEmail(), user.getPw(), request, response);
     }
 
     @PostMapping("/signUp")

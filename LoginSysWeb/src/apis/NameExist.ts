@@ -2,9 +2,11 @@ import httpRequest from '@/request/index'
 
 export function apiNameExist(userName: String) {
     return httpRequest({
-        url:'/users',
-        method:'post',
-        data: userName,
+        url: '/nameExist',
+        method: 'post',
+        data: { "id": null, "name": userName, "email": null, "pw": null }
     })
 }
+
+
 
