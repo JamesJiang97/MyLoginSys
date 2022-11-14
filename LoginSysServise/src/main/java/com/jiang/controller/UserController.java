@@ -29,14 +29,13 @@ public class UserController {
         return userService.emailExist(user.getEmail());
     }
 
-
     @PostMapping("/signIn")
     public Boolean signIn(@RequestBody User user, HttpServletRequest request , HttpServletResponse response){
         return userService.signIn(user.getEmail(), user.getPw(), request, response);
     }
 
     @PostMapping("/signUp")
-    public Boolean signUp(@RequestBody User user){
+    public Boolean signUp(@RequestBody User user, HttpServletRequest request , HttpServletResponse response){
         System.out.println(user.getName());
         System.out.println(user.getEmail());
         System.out.println(user.getPw());

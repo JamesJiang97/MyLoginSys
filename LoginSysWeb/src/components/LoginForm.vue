@@ -2,11 +2,14 @@
 
 import { apiNameExist } from '@/apis/NameExist'
 import { apiEmailExist} from '@/apis/EmailExist'
+import { apiSignIn } from '@/apis/SignIn'
+import { apiSignUp } from '@/apis/SignUp'
 import { ref } from 'vue'
 
 const name = ref('')
 const email = ref('')
 const pwd = ref('')
+const msg = ref(' ')
 
 function clean() {
 	name.value = ''
@@ -27,10 +30,13 @@ function signUp() {
 }
 
 
-
 function nameExist() {
 	apiNameExist(name.value).then((response) => {
-		console.log(response)
+		if(response.data == true){
+			msg.value = 'name exist'
+		}else{
+			msg.value = ' '
+		}
 	})
 }
 
@@ -40,6 +46,14 @@ function emailExist() {
 	})
 }
 
+function SignIn(){
+	apiSignIn(email.value, pwd.value).then((response)=>{
+		
+	})
+}
+
+
+
 </script>
 
 <template>
@@ -48,12 +62,15 @@ function emailExist() {
 		<div class="container" id="container">
 			<div class="form-container sign-up-container">
 				<form action="#">
+					<h5></h5>
 					<h1 class="tit">Create Account</h1>
-					<p></p>
+					<p></p>					
 					<input class="inp" type="text" v-model="name" @blur="nameExist" placeholder="Name" />
 					<input class="inp" type="email" v-model="email" @blur="emailExist" placeholder="Email" />
 					<input class="inp" type="password" v-model="pwd" placeholder="Password" />
+					<h5>{{msg}}</h5>
 					<button>Sign Up</button>
+					<h5></h5>
 				</form>
 			</div>
 			<div class="form-container sign-in-container">
@@ -62,8 +79,9 @@ function emailExist() {
 					<p></p>
 					<input class="inp" type="email" v-model="email" placeholder="Email" />
 					<input class="inp" type="password" v-model="pwd" placeholder="Password" />
-					<a href="#">Forgot your password?</a>
-					<button>Sign In</button>
+					<a>&nbsp</a>
+					<!-- <a href="#">Forgot your password?</a> -->
+					<button @click="SignIn">Sign In</button>
 				</form>
 			</div>
 			<div class="overlay-container">

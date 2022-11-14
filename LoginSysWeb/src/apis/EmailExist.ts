@@ -7,4 +7,3 @@ export function apiEmailExist(userEmail: String) {
         data: { "id": null, "name": null, "email": userEmail, "pw": null }
     })
 }
-
