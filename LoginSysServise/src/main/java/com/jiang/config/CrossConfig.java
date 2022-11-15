@@ -56,8 +56,9 @@ public class CrossConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         List<String> excludePath = new ArrayList<>();
         //排除拦截，除了注册登录(此时还没token)，其他都拦截
-        excludePath.add("/user/register");
-        excludePath.add("/user/login");
+        excludePath.add("/users/nameExist");
+        excludePath.add("/users/signIn");
+        excludePath.add("/users/signUp");
 
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")

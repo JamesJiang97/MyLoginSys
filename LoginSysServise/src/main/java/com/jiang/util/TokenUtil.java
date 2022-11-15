@@ -22,7 +22,6 @@ public class TokenUtil {
                     .withIssuer("auth0")
                     .withClaim("userName", user.getName())
                     .withExpiresAt(expiresAt)
-
                     .sign(Algorithm.HMAC256(TOKEN_SECRET));
         } catch (Exception e){
             e.printStackTrace();

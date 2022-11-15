@@ -5,11 +5,15 @@ import { apiEmailExist} from '@/apis/EmailExist'
 import { apiSignIn } from '@/apis/SignIn'
 import { apiSignUp } from '@/apis/SignUp'
 import { ref } from 'vue'
+import { storeToRefs } from "pinia";
+import { useTokenStore } from '@/stores/token'
 
 const name = ref('')
 const email = ref('')
 const pwd = ref('')
 const msg = ref(' ')
+
+const tokenStore = useTokenStore()
 
 function clean() {
 	name.value = ''
@@ -32,7 +36,7 @@ function signUp() {
 
 function nameExist() {
 	apiNameExist(name.value).then((response) => {
-		if(response.data == true){
+		if(response.data.code == 500){
 			msg.value = 'name exist'
 		}else{
 			msg.value = ' '
@@ -48,7 +52,14 @@ function emailExist() {
 
 function SignIn(){
 	apiSignIn(email.value, pwd.value).then((response)=>{
-		
+		if (response.data.code == 200) {
+			console.log(response.data.msg)
+			tokenStore.setUserName(response.data.userName)
+			tokenStore.setUserId(response.data.userId)
+			tokenStore.setToken(response.data.token)
+		}else{
+			alert("failed")
+		}
 	})
 }
 
@@ -81,7 +92,7 @@ function SignIn(){
 					<input class="inp" type="password" v-model="pwd" placeholder="Password" />
 					<a>&nbsp</a>
 					<!-- <a href="#">Forgot your password?</a> -->
-					<button @click="SignIn">Sign In</button>
+					<button type='button' @click="SignIn">Sign In</button>
 				</form>
 			</div>
 			<div class="overlay-container">
@@ -94,7 +105,7 @@ function SignIn(){
 					<div class="overlay-panel overlay-right">
 						<h1>Hello, Friend!</h1>
 						<p>Enter your personal details and start journey with us</p>
-						<button @click="signUp">Sign Up</button>
+						<button type='button' @click="signUp">Sign Up</button>
 					</div>
 				</div>
 			</div>

@@ -32,20 +32,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Boolean signIn(String email, String pw, HttpServletRequest request , HttpServletResponse response) {
-        User userInfo = userDao.loginByEmail(email, pw);
-        if(userInfo!=null){
-            //存入信息
-            Cookie cookie = new Cookie("token",email);
-            cookie.setPath("/");
-            cookie.setMaxAge(14*24*60*60);//单位秒，设置14天免登录
-            cookie.setSecure(true);//使用SSL
-            cookie.setHttpOnly(false);
-            response.addCookie(cookie);
-            System.out.println("令牌存入cookie");
-            return true;
-        }
-        return false;
+    public User signIn(String email, String pw, HttpServletRequest request , HttpServletResponse response) {
+        return userDao.loginByEmail(email, pw);
     }
 
     @Override
