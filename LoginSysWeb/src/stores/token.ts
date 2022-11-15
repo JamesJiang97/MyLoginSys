@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 export const useTokenStore = defineStore('storeId', {
-  // 为了完整类推理，推荐使用箭头函数
+
   state: () => {
     return {
         userId: localStorage.getItem('userId') ? localStorage.getItem('userId') : 0,
