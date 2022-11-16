@@ -5,7 +5,7 @@ A login system using tokens for authentication build upon Spring-boot and Vue3.
 
 ### Languages and Resources/Plugins
 
-#### BackEnd
+#### Back-End
 
 - Java
 - MySql
@@ -14,7 +14,7 @@ A login system using tokens for authentication build upon Spring-boot and Vue3.
 - JSON Web Token
 - FastJSON
 
-#### FrontEnd
+#### Front-End
 
 - TypeScript
 - HTML
