@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS `tb_account`(
+   `id` INT UNSIGNED AUTO_INCREMENT,
+   `name` VARCHAR(20) NOT NULL,
+   `email` VARCHAR(50) NOT NULL,
+   `pw` VARCHAR(20) NOT NULL,
+   `submission_date` DATE,
+   PRIMARY KEY ( `id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
