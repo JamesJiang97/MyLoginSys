@@ -33,9 +33,16 @@ public class UserController {
     }
 
     @PostMapping("/emailExist")
-    public Boolean emailExist(@RequestBody User user){
-        System.out.println(user.getEmail());
-        return userService.emailExist(user.getEmail());
+    public Object emailExist(@RequestBody User user){
+        JSONObject jsonObject = new JSONObject();
+        boolean flag =  userService.emailExist(user.getEmail());
+        if(flag){
+            jsonObject.put("code",500);
+        }
+        else {
+            jsonObject.put("code",200);
+        }
+        return jsonObject;
     }
 
     @PostMapping("/signIn")
@@ -58,10 +65,25 @@ public class UserController {
     }
 
     @PostMapping("/signUp")
-    public Boolean signUp(@RequestBody User user, HttpServletRequest request , HttpServletResponse response){
-        System.out.println(user.getName());
-        System.out.println(user.getEmail());
-        System.out.println(user.getPw());
-        return  userService.signUp(user.getName(), user.getEmail(), user.getPw());
+    public Object signUp(@RequestBody User user){
+        JSONObject jsonObject = new JSONObject();
+        boolean flag = userService.signUp(user.getName(), user.getEmail(), user.getPw());
+        if (flag){
+            jsonObject.put("msg","success");
+            jsonObject.put("code",200);
+        }
+        else {
+            jsonObject.put("msg","failed");
+            jsonObject.put("code",500);
+        }
+        return jsonObject;
+    }
+
+    @PostMapping("/verifyToken")
+    public Object verifyToken(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("msg","success");
+        jsonObject.put("code",200);
+        return jsonObject;
     }
 }

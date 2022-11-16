@@ -5,12 +5,12 @@ import { apiEmailExist} from '@/apis/EmailExist'
 import { apiSignIn } from '@/apis/SignIn'
 import { apiSignUp } from '@/apis/SignUp'
 import { ref } from 'vue'
-import { storeToRefs } from "pinia";
 import { useTokenStore } from '@/stores/token'
+import router from '@/router/router'
 
 const name = ref('')
 const email = ref('')
-const pwd = ref('')
+const pw = ref('')
 const msg = ref(' ')
 
 const tokenStore = useTokenStore()
@@ -18,7 +18,7 @@ const tokenStore = useTokenStore()
 function clean() {
 	name.value = ''
 	email.value = ''
-	pwd.value = ''
+	pw.value = ''
 }
 
 function signIn() {
@@ -46,17 +46,32 @@ function nameExist() {
 
 function emailExist() {
 	apiEmailExist(email.value).then((response) => {
-		console.log(response)
+		if(response.data.code == 500){
+			msg.value = 'email exist'
+		}else{
+			msg.value = ' '
+		}
 	})
 }
 
 function SignIn(){
-	apiSignIn(email.value, pwd.value).then((response)=>{
+	apiSignIn(email.value, pw.value).then((response)=>{
 		if (response.data.code == 200) {
 			console.log(response.data.msg)
 			tokenStore.setUserName(response.data.userName)
 			tokenStore.setUserId(response.data.userId)
 			tokenStore.setToken(response.data.token)
+			router.push('/MyPage')
+		}else{
+			alert("failed")
+		}
+	})
+}
+
+function SignUp(){
+	apiSignUp(name.value, email.value,pw.value).then((response)=>{
+		if (response.data.code == 200) {
+			alert("success! Please sign in")
 		}else{
 			alert("failed")
 		}
@@ -78,9 +93,9 @@ function SignIn(){
 					<p></p>					
 					<input class="inp" type="text" v-model="name" @blur="nameExist" placeholder="Name" />
 					<input class="inp" type="email" v-model="email" @blur="emailExist" placeholder="Email" />
-					<input class="inp" type="password" v-model="pwd" placeholder="Password" />
+					<input class="inp" type="password" v-model="pw" placeholder="Password" />
 					<h5>{{msg}}</h5>
-					<button>Sign Up</button>
+					<button type='button' @click="SignUp">Sign Up</button>
 					<h5></h5>
 				</form>
 			</div>
@@ -89,7 +104,7 @@ function SignIn(){
 					<h1 class="tit">Sign in</h1>
 					<p></p>
 					<input class="inp" type="email" v-model="email" placeholder="Email" />
-					<input class="inp" type="password" v-model="pwd" placeholder="Password" />
+					<input class="inp" type="password" v-model="pw" placeholder="Password" />
 					<a>&nbsp</a>
 					<!-- <a href="#">Forgot your password?</a> -->
 					<button type='button' @click="SignIn">Sign In</button>
@@ -105,7 +120,7 @@ function SignIn(){
 					<div class="overlay-panel overlay-right">
 						<h1>Hello, Friend!</h1>
 						<p>Enter your personal details and start journey with us</p>
-						<button type='button' @click="signUp">Sign Up</button>
+						<button @click="signUp">Sign Up</button>
 					</div>
 				</div>
 			</div>

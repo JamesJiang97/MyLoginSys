@@ -1,5 +1,14 @@
 <script setup lang="ts">
 
+import router from '@/router/router';
+import { useTokenStore } from '@/stores/token'
+const tokenStore = useTokenStore()
+
+function SignOut(){
+    tokenStore.logout()
+    router.push('/')
+}
+
 
 </script>
 
@@ -11,7 +20,7 @@
             <div class="wave"></div>
             <div class="wave"></div>
             <div class="buttons" id="buttons">
-                <button>Sign Out</button>
+                <button type='button' @click="SignOut">Sign Out</button>
                 <!-- <button>Change Password</button> -->
             </div>
         </div>

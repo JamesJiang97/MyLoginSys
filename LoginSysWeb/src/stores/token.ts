@@ -27,6 +27,8 @@ export const useTokenStore = defineStore('storeId', {
         this.token = null
         localStorage.removeItem('userName')
         this.userName = null
+        localStorage.removeItem('userId')
+        this.userId = null
     },
   },
 })
