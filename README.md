@@ -38,13 +38,13 @@ Mysql 8.0
 $ git clone https://github.com/JamesJiang97/MyLoginSys.git
 ```
 
-### Start FrontEnd server
+### Start Front-End Server
 ```
 $ cd ./LoginSysWeb
 $ npm install
 $ npm run dev
 ```
-### Start BackEnd server
+### Start Back-End Server
 
  1. Create database table by running 
    ```
