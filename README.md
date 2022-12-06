@@ -8,7 +8,7 @@ A login system using tokens for authentication build upon Spring-boot and Vue3.
 #### Back-End
 
 - Java
-- MySql
+- MySQL
 - SpringBoot
 - MyBatis
 - JSON Web Token
