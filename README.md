@@ -1,5 +1,5 @@
 # MyLoginSystem
-A login system using tokens for authentication build upon Spring-boot and Vue3.
+A login system using JWT for authentication build upon Spring-boot and Vue3.
 
 
 ## Demo
