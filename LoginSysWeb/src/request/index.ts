@@ -2,8 +2,7 @@ import axios from 'axios'
 
 
 const service = axios.create({
-	baseURL: 'https://my-loginsys-service.herokuapp.com/users',
-	// baseURL: 'http://localhost:8080/users'
+	baseURL: 'http://localhost:8080/users'
 	timeout: 60000, 
 	withCredentials: true,
 	headers: {
