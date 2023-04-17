@@ -7,7 +7,6 @@ const service = axios.create({
 	withCredentials: true,
 	headers: {
 		'Content-Type': 'application/json',
-		'token': localStorage.getItem('token'),
 		'X-Requested-With': 'XMLHttpRequest',
 	},
 })
@@ -15,6 +14,7 @@ const service = axios.create({
 // 添加请求拦截器
 service.interceptors.request.use(
 	function (config) {
+		config.headers.token = localStorage.getItem('token')
 		return config
 	},
 	function (error) {
