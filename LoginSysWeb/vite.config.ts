@@ -9,6 +9,10 @@ export default defineConfig({
     host: false
   },
 
+  // base:'/LoginSysWeb/',
+  base: process.env.NODE_ENV === 'production' ? '/LoginSysWeb/' : './',
+
+
   resolve:{
     alias: [
       { find: '@', replacement: path.resolve(__dirname, '/src') }

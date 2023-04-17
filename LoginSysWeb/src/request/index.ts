@@ -1,12 +1,12 @@
 import axios from 'axios'
 
-// 创建一个 axios 实例
+
 const service = axios.create({
-	baseURL: 'http://localhost:8080/users', // 所有的请求地址前缀部分
-	timeout: 60000, // 请求超时时间毫秒
-	withCredentials: true, // 异步请求携带cookie
+	baseURL: 'https://my-loginsys-service.herokuapp.com/users',
+	// baseURL: 'http://localhost:8080/users'
+	timeout: 60000, 
+	withCredentials: true,
 	headers: {
-		// 设置后端需要的传参类型
 		'Content-Type': 'application/json',
 		'token': localStorage.getItem('token'),
 		'X-Requested-With': 'XMLHttpRequest',
@@ -16,7 +16,6 @@ const service = axios.create({
 // 添加请求拦截器
 service.interceptors.request.use(
 	function (config) {
-		// 在发送请求之前做些什么
 		return config
 	},
 	function (error) {

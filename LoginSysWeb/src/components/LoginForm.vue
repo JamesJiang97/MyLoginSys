@@ -61,7 +61,7 @@ function SignIn(){
 			tokenStore.setUserName(response.data.userName)
 			tokenStore.setUserId(response.data.userId)
 			tokenStore.setToken(response.data.token)
-			router.push('/MyPage')
+			router.push('/mypage')
 		}else{
 			alert("failed")
 		}

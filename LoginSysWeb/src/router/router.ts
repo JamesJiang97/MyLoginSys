@@ -12,16 +12,17 @@ const routes = [
     },
 
     {
-        path: '/MyPage',
+        path: '/mypage',
         name: 'MyPage',
         component: MyPage
     },
 ]
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory(import.meta.env.BASE_URL),
     routes,
 })
+
 
 router.beforeEach((to, from, next) => {
     if (to.path == '/') {
@@ -31,6 +32,7 @@ router.beforeEach((to, from, next) => {
         next()
     } else {
         let userToken = localStorage.getItem('token')
+        // console.log(userToken)
         if (userToken == null || userToken == '') {
             alert("Please sign in");
             return next('/');
